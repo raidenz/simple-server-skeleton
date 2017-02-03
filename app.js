@@ -1,5 +1,19 @@
+var knex = require('knex')({
+  client: 'mysql',
+  connection: {
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'densss',
+    charset: 'utf8'
+  }
+});
+
+var Bookshelf = require('bookshelf')(knex);
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+var _ = require('lodash');
 var router = express.Router();
 var useport = process.env.PORT || 4738;
 
@@ -7,11 +21,12 @@ app.use(express.static('public'));
 app.set('views', './views');
 app.set('view engine', 'pug');
 
+// for parsing forms
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 var site = require('./app/controller/site');
 var user = require('./app/controller/user');
-
-
 
 app.get('/', function(req,res){
 	res.type('text/plain');
