@@ -1,0 +1,11 @@
+extends ../layout.pug
+
+block content
+	h1 Users
+	#users
+		for user, i in users
+			li
+				a(href='/user/'+i)= user.name + '\t'
+				a.edit(href=`/user/${i}/edit`) edit
+				// a.edit(href="/user/#{i}/edit") edit #{i}
+				// a.edit(href="/user/"+i+"/edit") edit #{i}
