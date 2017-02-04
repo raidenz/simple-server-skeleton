@@ -2,8 +2,11 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var _ = require('lodash');
-var router = express.Router();
 var useport = process.env.PORT || 4738;
+
+
+
+/* Api Router Stop */
 
 app.use(express.static('public'));
 app.set('views', './views');
@@ -13,55 +16,16 @@ app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-var site = require('./app/controller/site');
-var user = require('./app/controller/user');
-var apiUser = require('./app/controller/api/user');
-
-app.get('/', function(req,res){
-	res.type('text/plain');
-	res.send('i am a test');
-});
-
-app.get('/telo', function(req,res){
-	// console.log(req);
-	res.type('text/plain');
-	res.send('i am a telo');
-});
-app.get('/telo/:id', function(req,res){
-	res.type('text/plain');
-	res.send('i am a telo ' + req.params.id);
-});
-
-
-app.get('/helo', function(req,res){
-	res.render('helo', { title: 'Hey', message: 'Hello there!' })
-});
-
-
-/*separation test*/
-app.get('/site', site.index);
-
-app.get('/users', user.list);
-app.all('/user/:id/:op?', user.load);
-app.get('/user/:id', user.view);
-app.get('/user/:id/view', user.view);
-app.get('/user/:id/edit', user.edit);
-app.post('/user/:id/edit', user.update);
-// app.put('/user/:id/edit', user.update);
-
+// route
+// outside route test
 /* Api Router Start */
-router.get('/', function(req,res){
-	res.json({message: "huraii api"});
-});
-router.get('/users', apiUser.list);
-router.get('/post', function(req,res){
-	res.json({message: "get latest post"});
-});
-router.get('/contact', function(req,res){
-	res.json({message: "get contact page"});
-});
-app.use('/api', router);
-/* Api Router Stop */
+var routeTelo = require('./route/telo');
+var routeApi = require('./route/api');
+var routeMain = require('./route/main');
+
+app.use('/', routeMain);
+app.use('/telo', routeTelo);
+app.use('/api', routeApi);
 
 // app.listen(process.env.PORT || 3000);
 // kalau install di heroku misal
