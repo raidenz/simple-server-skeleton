@@ -15,7 +15,6 @@ app.use(bodyParser.json());
 
 var site = require('./app/controller/site');
 var user = require('./app/controller/user');
-var apiUser = require('./app/controller/api/user');
 
 app.get('/', function(req,res){
 	res.type('text/plain');
@@ -46,14 +45,12 @@ app.all('/user/:id/:op?', user.load);
 app.get('/user/:id', user.view);
 app.get('/user/:id/view', user.view);
 app.get('/user/:id/edit', user.edit);
-app.post('/user/:id/edit', user.update);
-// app.put('/user/:id/edit', user.update);
+app.put('/user/:id/edit', user.update);
 
 /* Api Router Start */
 router.get('/', function(req,res){
 	res.json({message: "huraii api"});
 });
-router.get('/users', apiUser.list);
 router.get('/post', function(req,res){
 	res.json({message: "get latest post"});
 });

@@ -1,8 +1,8 @@
 // Fake user database
 
 var users = [
-  { name: 'TJ', email: 'tj@vision-media.ca' },
-  { name: 'Tobi', email: 'tobi@vision-media.ca' }
+  { name: 'TJ', email: 'telo@example.com' },
+  { name: 'Tobi', email: 'tobi@example.com' }
 ];
 
 exports.list = function(req, res){
@@ -38,8 +38,9 @@ exports.edit = function(req, res){
 exports.update = function(req, res){
   // Normally you would handle all kinds of
   // validation and save back to the db
+  console.log(req.body.user);
   var user = req.body.user;
   req.user.name = user.name;
-req.user.email = user.email;
+  req.user.email = user.email;
   res.redirect('back');
 };
