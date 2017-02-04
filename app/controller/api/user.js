@@ -11,6 +11,19 @@ exports.list = function(req, res){
   });
 };
 
+exports.create = function(req, res){
+  PostModel.User.forge({
+    name: req.body.name,
+    email: req.body.email
+  })
+  .save()
+  .then(function (user) {
+    res.json({error: false, data: {id: user.get('id')}});
+  })
+  .otherwise(function (err) {
+    res.status(500).json({error: true, data: {message: err.message}});
+  });
+};
 exports.getId = function(req, res){
   PostModel.User.forge({id: req.params.id})
     .fetch()

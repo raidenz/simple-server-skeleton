@@ -1,3 +1,5 @@
+var ld = require( 'lodash' );
+var _ = ld.noConflict();
 var PostModel = require('./../../../models/Model');
 
 exports.getId = function(req, res){
@@ -20,6 +22,8 @@ exports.getId = function(req, res){
 //post
 exports.create = function(req, res){
     var tags = req.body.tags;
+    console.log(tags);
+    // process.exit();
 
    // parse tags variable
     if (tags) {
@@ -36,7 +40,7 @@ exports.create = function(req, res){
       user_id: req.body.user_id,
       category_id: req.body.category_id,
       title: req.body.title,
-      slug: req.body.title.replace(/ /g, '-').toLowerCase(),
+      // slug: req.body.title.replace(/ /g, '-').toLowerCase(),
       html: req.body.post
     })
     .save()
@@ -44,6 +48,7 @@ exports.create = function(req, res){
 
       // post successfully saved
       // save tags
+      console.log('tag before save', tags);
       saveTags(tags)
       .then(function (ids) {
 
@@ -71,8 +76,8 @@ exports.create = function(req, res){
 
 // router.route('/posts/category/:id')
   // .get(function (req, res) {
-exports.categoryId = function(req, res){
-    Category.forge({id: req.params.id})
+exports.getCatbyId = function(req, res){
+    PostModel.Category.forge({id: req.params.id})
     .fetch({withRelated: ['posts']})
     .then(function (category) {
       var posts = category.related('posts');
@@ -87,8 +92,8 @@ exports.categoryId = function(req, res){
 
 // router.route('/posts/tag/:slug')
 //   .get(function (req, res) {
-exports.tagSlug = function(req, res){
-    Tag.forge({slug: req.params.slug})
+exports.getTagBySlug = function(req, res){
+    PostModel.Tag.forge({slug: req.params.slug})
     .fetch({withRelated: ['posts']})
     .then(function (tag) {
       var posts = tag.related('posts');
@@ -102,23 +107,26 @@ exports.tagSlug = function(req, res){
   };
 
 function saveTags(tags) {
+  console.log('tag inside save', tags);
   var tagObjects = tags.map(function (tag) {
     return {
       name: tag,
       slug: tag.replace(/ /g, '-').toLowerCase()
     };
   });
-
-  return Tags.forge()
-  .query('whereIn', 'slug', _.pluck(tagObjects, 'slug'))
+    // console.log("object", tagObjects);
+  return PostModel.Tags.forge()
+  // .query('whereIn', 'slug', _.pluck(tagObjects, 'slug'))
+  .query('whereIn', 'slug', _.map(tagObjects, 'slug'))
   .fetch()
   .then(function (existingTags) {
     var doNotExist = [];
 
     existingTags = existingTags.toJSON();
-
+    console.log('tag exist', existingTags);
     if (existingTags.length > 0) {
-      var existingSlugs = _.pluck(existingTags, 'slug');
+      var existingSlugs = _.map(existingTags, 'slug');
+      // var existingSlugs = _.pluck(existingTags, 'slug');
 
       doNotExist = tagObjects.filter(function (t) {
         return existingSlugs.indexOf(t.slug) < 0;
@@ -128,14 +136,17 @@ function saveTags(tags) {
       doNotExist = tagObjects;
     }
 
-    return new Tags(doNotExist).mapThen(function(model) {
+    return new PostModel.Tags(doNotExist).mapThen(function(model) {
       return model.save()
       .then(function() {
         return model.get('id');
       });
     })
     .then(function (ids) {
-      return _.union(ids, _.pluck(existingTags, 'id'));
+      return _.union(ids, _.map(existingTags, 'id'));
     });
   });
 }
+
+// pluck solution
+// http://colintoh.com/blog/lodash-10-javascript-utility-functions-stop-rewriting

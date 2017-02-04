@@ -4,10 +4,7 @@ var bodyParser = require('body-parser');
 var _ = require('lodash');
 var useport = process.env.PORT || 4738;
 
-
-
 /* Api Router Stop */
-
 app.use(express.static('public'));
 app.set('views', './views');
 app.set('view engine', 'pug');
