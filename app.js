@@ -4,6 +4,9 @@ var bodyParser = require('body-parser');
 var _ = require('lodash');
 var useport = process.env.PORT || 4738;
 
+var auth = require("./config/auth.js")();
+app.use(auth.initialize());
+
 /* Api Router Stop */
 app.use(express.static('public'));
 app.set('views', './views');
@@ -19,10 +22,12 @@ app.use(bodyParser.json());
 var routeTelo = require('./route/telo');
 var routeApi = require('./route/api');
 var routeMain = require('./route/main');
+var routeAuth = require('./route/auth');
 
 app.use('/', routeMain);
 app.use('/telo', routeTelo);
 app.use('/api', routeApi);
+app.use('/auth', routeAuth);
 
 // app.listen(process.env.PORT || 3000);
 // kalau install di heroku misal
