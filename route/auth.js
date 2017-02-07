@@ -11,6 +11,7 @@
 var express = require('express');
 var router = express.Router();
 
+var _ = require('lodash');
 var jwt = require("jwt-simple");
 var auth = require("./../config/auth.js")();
 var users = require("./../config/fakeUsers.js");
@@ -22,10 +23,11 @@ var cfg = require("./../config/config.js");
  * /auth/user
  */
 router.get("/user", auth.authenticate(), function(req, res) {
-    // console.log('reqq', req);
-    dummy = (req.user.id - 1);
-    res.json(users[dummy]);
-    // res.json(users[req.user.id]);
+  // console.log('reqq', req);
+  // dummy = (req.user.id - 1);
+  // res.json(users[dummy]);
+  // res.json(users[req.user.id]);
+  res.json(_.find(users, ['id', req.user.id]));
 });
 
 /**
@@ -47,7 +49,8 @@ router.post('/token', function(req, res){
             console.log(user.id);
             var token = jwt.encode(payload, cfg.jwtConfig.jwtSecret);
             res.json({
-                token: token
+                error: false,
+                token: 'JWT ' + token
             });
         } else {
             res.sendStatus(401);

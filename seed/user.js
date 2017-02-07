@@ -7,7 +7,8 @@ var faker = require('faker/locale/de');
 
 PostModel.User.forge({
   email: faker.internet.email(),
-  name: faker.name.findName()
+  name: faker.name.findName(),
+  password: 'secret'
 }).save().then(function(){
   console.log("ok");
   process.exit();

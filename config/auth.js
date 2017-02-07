@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var passport = require("passport");
 var passportJWT = require("passport-jwt");
 var users = require("./fakeUsers.js");
@@ -11,10 +12,11 @@ var params = {
 
 module.exports = function() {
     var strategy = new Strategy(params, function(payload, done) {
-        var dummy = (payload.id - 1); // karna masih dummy array start dari 0
+        // var dummy = (payload.id - 1); // karna masih dummy array start dari 0
+        // var user = users[dummy] || null;
         // var user = users[payload.id] || null;
-        var user = users[dummy] || null;
         // console.log("ses payload ", payload);
+        var user = (_.find(users, ['id', payload.id])) || null;
         if (user) {
             return done(null, {
                 id: user.id

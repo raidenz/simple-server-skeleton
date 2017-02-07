@@ -23,6 +23,7 @@
   "author": "Raidenz",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.0",
     "body-parser": "^1.16.0",
     "bookshelf": "^0.10.3",
     "bookshelf-slug": "^0.3.2",

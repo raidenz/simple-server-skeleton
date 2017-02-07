@@ -1,5 +1,6 @@
 var Bookshelf = require('./../config/db').bookshelf;
-Bookshelf.plugin(require('bookshelf-slug'))
+Bookshelf.plugin(require('bookshelf-slug'));
+Bookshelf.plugin(require('bookshelf-bcrypt'));
 /*
  *   Models
 **/
@@ -7,10 +8,8 @@ Bookshelf.plugin(require('bookshelf-slug'))
 // User model
 var User = Bookshelf.Model.extend({
   tableName: 'users',
-  // slug: {
-  //   column: 'slug',
-  //   items: ['title']
-  // }
+  bcrypt: { field: 'password' } //,
+  // hidden: ['password'] // omit('password')
 });
 
 // Post model

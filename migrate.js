@@ -2,7 +2,8 @@
 var knex = require('knex')({
   client: 'mysql',
   connection: {
-    host: 'localhost',
+    // host: 'localhost',
+    host: '10.0.2.2', //vagrant set ip
     user: 'root',
     password: '',
     database: 'test_densss',
