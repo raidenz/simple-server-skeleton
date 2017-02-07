@@ -11,7 +11,6 @@
 var express = require('express');
 var router = express.Router();
 
-var bcrypt = require('bcrypt');
 var _ = require('lodash');
 var jwt = require("jwt-simple");
 var auth = require("./../config/auth.js")();
@@ -42,6 +41,9 @@ router.post('/token', function(req, res){
   if (req.body.email && req.body.password) {
     var email = req.body.email;
     var password = req.body.password;
+    var user = users.find(function(u) {
+        return u.email === email && u.password === password;
+    });
     /*
     logic Error
      */
@@ -50,33 +52,34 @@ router.post('/token', function(req, res){
       .then(function (user) {
         if (!user) {
           // res.status(404).json({error: true, data: {}});
-          // console.log('user ga ada');
-          res.sendStatus(401);
+          console.log('user ga ada');
         }
         else {
-
-          bcrypt.compare(password, user.get('password'), function(err, isMatch) {
-            // callback(err, isMatch);
-            if(isMatch){
-              var payload = {
-                id: user.id
-              };
-              // console.log(user.id);
-              var token = jwt.encode(payload, cfg.jwtConfig.jwtSecret);
-              res.json({
-                  error: false,
-                  token: 'JWT ' + token
-              });
-            } else {
-              console.log(err);
-              res.sendStatus(401);
-            }
+          console.log('user ada', user);
+          user.comparePasswords('secret', function(err , isMatch){
+            console.log('error ', err);
+            console.log('match ', isMatch);
           });
+          // res.json({error: false, data: user.toJSON()});
         }
       })
       .catch(function (err) {
         // res.status(500).json({error: true, data: {message: err.message}});
     });
+
+    if (user) {
+        var payload = {
+            id: user.id
+        };
+        console.log(user.id);
+        var token = jwt.encode(payload, cfg.jwtConfig.jwtSecret);
+        res.json({
+            error: false,
+            token: 'JWT ' + token
+        });
+    } else {
+        res.sendStatus(401);
+    }
   } else {
       res.sendStatus(401);
   }

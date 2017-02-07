@@ -1,3 +1,4 @@
+var bcrypt = require('bcrypt');
 var Bookshelf = require('./../config/db').bookshelf;
 Bookshelf.plugin(require('bookshelf-slug'));
 Bookshelf.plugin(require('bookshelf-bcrypt'));
@@ -8,7 +9,12 @@ Bookshelf.plugin(require('bookshelf-bcrypt'));
 // User model
 var User = Bookshelf.Model.extend({
   tableName: 'users',
-  bcrypt: { field: 'password' } //,
+  bcrypt: { field: 'password' },
+  comparePasswords: function(attemptedPassword, callback) {
+    bcrypt.compare(attemptedPassword, this.get('password'), null, function(err, isMatch) {
+      callback(err, isMatch);
+    });
+  }
   // hidden: ['password'] // omit('password')
 });
 

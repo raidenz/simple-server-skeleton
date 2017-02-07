@@ -22,7 +22,9 @@ var operations = posts.map(function (post) {
 
 sequence(operations).then(function (createdModels) {
   console.log(createdModels);
+  process.exit();
 })
 .otherwise(function (error) {
   console.error(error.stack);
+  process.exit();
 });
