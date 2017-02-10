@@ -26,6 +26,14 @@ not use anymore but you can try it
 ###rollback change
 ```knex migrate:rollback```
 
+###seed database
+```cd ./seed```
+
+```node user.js``` user password default is "secret"
+```node post.js```
+```node categories.js```
+```node tags.js```
+
 ###run system
 ```npm install```
 ```npm start```
@@ -38,3 +46,13 @@ install it from [https://www.vagrantup.com/](https://www.vagrantup.com/)
 ```vagrant init hashicorp/precise64```
 ```vagrant up```
 ```vagrant ssh```
+
+###Route
+
+get JWT
+post to: ```localhost:port/auth/token```
+param: ```email,password```
+
+get user
+post to: ```localhost:port/auth/user```
+param header: ``` Authorization: JWT jwtpass ```
