@@ -15,7 +15,6 @@ var bcrypt = require('bcrypt');
 var _ = require('lodash');
 var jwt = require("jwt-simple");
 var auth = require("./../config/auth.js")();
-var users = require("./../config/fakeUsers.js");
 var cfg = require("./../config/config.js");
 
 var PostModel = require('./../models/Model');
@@ -26,11 +25,19 @@ var PostModel = require('./../models/Model');
  * /auth/user
  */
 router.get("/user", auth.authenticate(), function(req, res) {
-  // console.log('reqq', req);
-  // dummy = (req.user.id - 1);
-  // res.json(users[dummy]);
-  // res.json(users[req.user.id]);
-  res.json(_.find(users, ['id', req.user.id]));
+  PostModel.User.forge({id: req.user.id})
+    .fetch()
+    .then(function (user) {
+      if (!user) {
+        res.status(404).json({error: true, data: {}});
+      }
+      else {
+        res.json({error: false, data: user.omit('password')});
+      }
+    })
+    .catch(function (err) {
+      res.status(500).json({error: true, data: {message: err.message}});
+  });
 });
 
 /**
@@ -49,8 +56,6 @@ router.post('/token', function(req, res){
       .fetch()
       .then(function (user) {
         if (!user) {
-          // res.status(404).json({error: true, data: {}});
-          // console.log('user ga ada');
           res.sendStatus(401);
         }
         else {
@@ -68,7 +73,7 @@ router.post('/token', function(req, res){
                   token: 'JWT ' + token
               });
             } else {
-              console.log(err);
+              // console.log(err);
               res.sendStatus(401);
             }
           });
@@ -82,6 +87,5 @@ router.post('/token', function(req, res){
   }
 
 });
-
 
 module.exports = router

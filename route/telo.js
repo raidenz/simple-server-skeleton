@@ -15,6 +15,7 @@ router.get('/telo', function(req,res){
 
 // telo with prefix must place at the bottom
 // telo/1
+
 router.get('/:id', function(req,res){
   res.type('text/plain');
   res.send('i am a telo ' + req.params.id);

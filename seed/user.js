@@ -6,7 +6,7 @@ var faker = require('faker/locale/de');
 // import { Post } from './../models'; // es6
 
 PostModel.User.forge({
-  email: faker.internet.email(),
+  email: faker.internet.email().toLowerCase(),
   name: faker.name.findName(),
   password: 'secret'
 }).save().then(function(){

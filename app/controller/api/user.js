@@ -32,7 +32,7 @@ exports.getId = function(req, res){
         res.status(404).json({error: true, data: {}});
       }
       else {
-        res.json({error: false, data: user.toJSON()});
+        res.json({error: false, data: user.omit('password')});
       }
     })
     .catch(function (err) {
