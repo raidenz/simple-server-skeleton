@@ -5,11 +5,12 @@ var site = require('./../app/controller/site');
 var user = require('./../app/controller/user');
 
 
-router.get('/', function(req,res){
-  res.type('text/plain');
-  res.send('i am a test');
-});
-router.get('/site', site.index);
+// router.get('/', function(req,res){
+//   res.type('text/plain');
+//   res.send('i am a test');
+// });
+router.get('/', site.index);
+// router.get('/site', site.index);
 
 router.get('/users', user.list);
 router.all('/user/:id/:op?', user.load);

@@ -11,8 +11,22 @@ var User = Bookshelf.Model.extend({
   tableName: 'users',
   bcrypt: { field: 'password' },
   comparePasswords: function(attemptedPassword, callback) {
-    bcrypt.compare(attemptedPassword, this.get('password'), null, function(err, isMatch) {
-      callback(err, isMatch);
+    bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
+      // callback(err, isMatch);
+      // callback way
+        if(err){
+            return callback(err);
+        } else {
+            console.log("model: " + isMatch)
+            callback(null, isMatch);
+        }
+        /*use
+          PostModel.User.comparePasswords('Password123', function(err, isMatch) {
+            if (err) throw err;
+            console.log('Password123:', isMatch); // -> Password123: true
+          });
+        */
+      // callback way
     });
   }
   // hidden: ['password'] // omit('password')

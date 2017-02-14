@@ -1,0 +1,46 @@
+extends ../layout.pug
+
+block content
+  h1 Help
+
+  h2 test
+  ul
+    li get /
+    li get /users
+    li all /user/:id/:op?
+    li get /user/:id
+    li get /user/:id/view
+    li get /user/:id/edit
+    li post /user/:id/edit
+
+  h2 Auth (testing auth)
+  ul
+    li post /auth/token param(email, password) result (jwt jwtresult)
+    li post /auth/user (require auth) (header Authorization: jwt jwtresult)
+
+  h2 Api
+  ul
+    li get /api/users
+    li get /api/posts
+    li get /api/categories
+
+  h3 user
+  ul
+    li get /api/user/:id
+    li post /api/user
+    li post /api/user/:id/edit
+    li post /api/user/:id/delete
+
+  h3 post
+  ul
+    li get /api/posts/category/:id
+    li get /api/posts/tag/:slug
+    li get /api/post/:id
+    li post /api/post
+
+  h3 category
+  ul
+    li get /api/category/:id
+    li post /api/category
+    li post /api/category/:id/edit
+    li post /api/category/:id/delete
