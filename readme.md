@@ -35,8 +35,10 @@ not use anymore but you can try it
 ```node tags.js```
 
 ###run system
-```npm install```
-```npm start```
+```sh
+npm install
+npm start
+```
 
 in vagrant run
 ```nodemon app.js -L
@@ -56,3 +58,8 @@ param: ```email,password```
 get user
 post to: ```localhost:port/auth/user```
 param header: ``` Authorization: JWT jwtpass ```
+
+### Curl
+```sh
+$ curl -d "email=steffen70@hotmail.com&password=secret" http://yourip:4738
+```
