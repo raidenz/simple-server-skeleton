@@ -1,4 +1,4 @@
-var PostModel = require('./../../../models/Model');
+var PostModel = require('./../../models/Model');
 
 // router.route('/categories')
 //   // fetch all categories

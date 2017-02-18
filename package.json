@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
+    "clean": "rm -rf dist && mkdir dist",
+    "build-css": "node-sass scss/app.scss public/css/app.css",
     "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-2\"",
     "babel": "nodemon app.js --exec babel-node --presets es2015,stage-2",
     "buildtestfromlib": "babel lib -d dist --presets es2015,stage-2",
-    "build": "babel -d dist --presets es2015,stage-2",
+    "build": "npm run clean && babel -d ./dist ./ --ignore node_modules,seeds,seed,temp --presets es2015,stage-2",
     "build2": "babel src -s -D -d dist --presets es2015,stage-2",
-    "serve": "node dist/index.js",
+    "serve": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

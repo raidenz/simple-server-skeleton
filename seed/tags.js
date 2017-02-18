@@ -1,8 +1,8 @@
 var sequence = require('when/sequence');
 
 // requires you to save your model in a seperate file
-var PostModel = require('./../models/Model');
-// import { Post } from './../models'; // es6
+var PostModel = require('./../app/models/Model');
+// import { Post } from './../app/models'; // es6
 
 var tags = [
   {name: 'Bookshelf'},

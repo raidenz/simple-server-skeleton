@@ -24,11 +24,11 @@ app.use(bodyParser.json());
 // route
 // outside route test
 /* Api Router Start */
-var routeTelo = require('./route/telo');
-var routeApi = require('./route/api');
-var routeMain = require('./route/main');
-var routeAuth = require('./route/auth');
-var routeDebug = require('./route/debug');
+var routeTelo = require('./app/route/telo');
+var routeApi = require('./app/route/api');
+var routeMain = require('./app/route/main');
+var routeAuth = require('./app/route/auth');
+var routeDebug = require('./app/route/debug');
 
 app.use('/', routeMain);
 app.use('/telo', routeTelo);

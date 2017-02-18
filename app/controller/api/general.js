@@ -1,4 +1,4 @@
-var PostModel = require('./../../../models/Model');
+var PostModel = require('./../../models/Model');
 var _ = require('lodash');
 
 exports.users = function(req, res){

@@ -1,4 +1,4 @@
-var PostModel = require('./../../../models/Model');
+var PostModel = require('./../../models/Model');
 
 exports.list = function(req, res){
   PostModel.Users.forge()
