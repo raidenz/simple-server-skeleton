@@ -1,4 +1,7 @@
+// "use strict";
+// require('babel-polyfill'); //es6 test
 var express = require('express');
+// import express from 'express';
 var app = express();
 var bodyParser = require('body-parser');
 var logger = require('morgan');
@@ -25,11 +28,13 @@ var routeTelo = require('./route/telo');
 var routeApi = require('./route/api');
 var routeMain = require('./route/main');
 var routeAuth = require('./route/auth');
+var routeDebug = require('./route/debug');
 
 app.use('/', routeMain);
 app.use('/telo', routeTelo);
 app.use('/api', routeApi);
 app.use('/auth', routeAuth);
+app.use('/debug', routeDebug);
 
 // development error handler
 // will print stacktrace
