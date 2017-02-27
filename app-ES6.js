@@ -1,15 +1,24 @@
 // "use strict";
 // require('babel-polyfill'); //es6 test
-// import express from 'express';
+import express from 'express';
+import bodyParser from 'body-parser';
+import logger from 'morgan';
+import _ from 'lodash';
 
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var logger = require('morgan');
-var _ = require('lodash');
-var useport = process.env.PORT || 4738;
+import authConfig from './config/auth.js';
 
-var auth = require("./config/auth.js")();
+// var express = require('express');
+// var app = express();
+// var bodyParser = require('body-parser');
+// var logger = require('morgan');
+// var _ = require('lodash');
+// var useport = process.env.PORT || 4738;
+
+const app = express();
+const auth = authConfig();
+const useport = process.env.PORT || 4738;
+
+// var auth = require("./config/auth.js")();
 app.use(auth.initialize());
 
 /**

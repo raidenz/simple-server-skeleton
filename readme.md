@@ -28,6 +28,11 @@ not use anymore but you can try it
 
 ###seed database
 ```cd ./seed```
+or using
+```sh
+$knex seed:make seedName //make migration
+$knex seed:run // run migration
+```
 
 ```node user.js``` user password default is "secret"
 ```node post.js```
