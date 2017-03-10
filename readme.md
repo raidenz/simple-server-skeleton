@@ -80,5 +80,5 @@ param header: ``` Authorization: JWT jwtpass ```
 
 ### Curl
 ```sh
-$ curl -d "email=steffen70@hotmail.com&password=secret" http://yourip:4738
+$ curl -d "email=sofia_nitzsche@example.com&password=secret" http://yourip:4738
 ```
