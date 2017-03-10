@@ -1,6 +1,9 @@
-var ld = require( 'lodash' );
-var _ = ld.noConflict();
-var PostModel = require('./../../models/Model');
+// var ld = require( 'lodash' );
+// var _ = ld.noConflict();
+// var PostModel = require('./../../models/Model');
+
+import _ from 'lodash';
+import PostModel from './../../models/Model';
 
 exports.getId = function(req, res){
     PostModel.Post.forge({id: req.params.id})

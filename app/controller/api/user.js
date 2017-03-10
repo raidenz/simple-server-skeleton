@@ -1,4 +1,6 @@
-var PostModel = require('./../../models/Model');
+// var PostModel = require('./../../models/Model');
+// import PostModel from './../../models/Model';
+import PostModel from './../../models';
 
 exports.list = function(req, res){
   PostModel.Users.forge()

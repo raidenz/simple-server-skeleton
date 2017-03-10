@@ -1,6 +1,7 @@
-var express = require('express')
+import express from 'express';
+import multer from 'multer';
+
 var router = express.Router()
-var multer = require('multer');
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb){

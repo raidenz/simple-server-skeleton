@@ -1,8 +1,8 @@
-var express = require('express');
+import express from 'express';
 var router = express.Router();
 
-var site = require('./../controller/site');
-var user = require('./../controller/user');
+import site from './../controller/site';
+import user from './../controller/user';
 
 
 // router.get('/', function(req,res){

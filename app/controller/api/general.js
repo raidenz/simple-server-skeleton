@@ -1,5 +1,9 @@
-var PostModel = require('./../../models/Model');
-var _ = require('lodash');
+// var PostModel = require('./../../models/Model');
+// var _ = require('lodash');
+
+// import PostModel from './../../models/Model';
+import PostModel from './../../models';
+import _ from 'lodash';
 
 exports.users = function(req, res){
   PostModel.Users.forge()
@@ -10,7 +14,8 @@ exports.users = function(req, res){
     // var usercol = (collection.toJSON());
     // var usercol = _.map(_.omit('password'));
     var usercol = _.map(collection.toJSON(), function(entry) {
-      return _.omit(entry, 'password');
+      // return _.omit(entry, 'password');
+      return entry; //visibility plugin on
     });
     // console.log(yes);
     // console.log(_.omit(usercol, ['password']));

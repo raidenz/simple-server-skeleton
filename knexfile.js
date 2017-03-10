@@ -7,14 +7,20 @@ module.exports = {
     // connection: {
     //   filename: './dev.sqlite3'
     // }
-    client: 'mysql',
+    // client: 'mysql',
+    // connection: {
+    //   host: '10.0.2.2',
+    //   user: 'root',
+    //   password: '',
+    //   database: 'test_densss',
+    //   charset: 'utf8'
+    // }
+    client: 'sqlite3',
     connection: {
-      host: '10.0.2.2',
-      user: 'root',
-      password: '',
-      database: 'test_densss',
+      filename: './test_dev.db', // WARNING buggy switch to ./../cprac_dev.db for seeding
       charset: 'utf8'
-    }
+    },
+    useNullAsDefault: true, //sqlite only
   },
 
   staging: {

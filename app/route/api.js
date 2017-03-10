@@ -1,10 +1,18 @@
-var express = require('express');
+// var express = require('express');
+// var router = express.Router();
+
+// var apiGeneral = require('./../controller/api/general');
+// var apiUser = require('./../controller/api/user');
+// var apiPost = require('./../controller/api/post');
+// var apiCategory = require('./../controller/api/category');
+
+import express from 'express';
 var router = express.Router();
 
-var apiGeneral = require('./../controller/api/general');
-var apiUser = require('./../controller/api/user');
-var apiPost = require('./../controller/api/post');
-var apiCategory = require('./../controller/api/category');
+import apiGeneral from './../controller/api/general';
+import apiUser from './../controller/api/user';
+import apiPost from './../controller/api/post';
+import apiCategory from './../controller/api/category';
 
 router.get('/', function(req,res){
   res.json({message: "huraii api"});

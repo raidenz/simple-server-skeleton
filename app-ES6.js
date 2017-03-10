@@ -55,11 +55,11 @@ app.use(bodyParser.json());
  *
  */
 
-var routeTelo = require('./app/route/telo');
-var routeApi = require('./app/route/api');
-var routeMain = require('./app/route/main');
-var routeAuth = require('./app/route/auth');
-var routeDebug = require('./app/route/debug');
+const routeTelo = require('./app/route/telo');
+const routeApi = require('./app/route/api');
+const routeMain = require('./app/route/main');
+const routeAuth = require('./app/route/auth');
+const routeDebug = require('./app/route/debug');
 
 app.use('/', routeMain);
 app.use('/telo', routeTelo);

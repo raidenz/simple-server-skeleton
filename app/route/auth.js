@@ -8,16 +8,29 @@
  * req:
  * /token
  */
-var express = require('express');
+// var express = require('express');
+// var router = express.Router();
+
+// var bcrypt = require('bcrypt');
+// var _ = require('lodash');
+// var jwt = require("jwt-simple");
+// var auth = require("./../../config/auth.js")();
+// var cfg = require("./../../config/config.js");
+
+// var PostModel = require('./../models/Model');
+
+import express from 'express';
 var router = express.Router();
 
-var bcrypt = require('bcrypt');
-var _ = require('lodash');
-var jwt = require("jwt-simple");
-var auth = require("./../../config/auth.js")();
-var cfg = require("./../../config/config.js");
+import bcrypt from 'bcrypt';
+import _ from 'lodash';
+import jwt from 'jwt-simple';
+import authdo from './../../config/auth.js';
+import cfg from './../../config/config.js';
 
-var PostModel = require('./../models/Model');
+const auth = authdo();
+
+import PostModel from './../models';
 
 // router.use(auth.initialize());
 
@@ -32,7 +45,8 @@ router.get("/user", auth.authenticate(), function(req, res) {
         res.status(404).json({error: true, data: {}});
       }
       else {
-        res.json({error: false, data: user.omit('password')});
+        // res.json({error: false, data: user.omit('password')});
+        res.json({ error: false, data: user });
       }
     })
     .catch(function (err) {
@@ -45,7 +59,7 @@ router.get("/user", auth.authenticate(), function(req, res) {
  */
 router.post('/token', function(req, res){
   // res.json({token: "generated token here"});
-
+  console.log(req.body);
   if (req.body.email && req.body.password) {
     var email = req.body.email;
     var password = req.body.password;
@@ -55,13 +69,21 @@ router.post('/token', function(req, res){
     PostModel.User.forge({email: req.body.email})
       .fetch()
       .then(function (user) {
+        // console.log('user is', user);
         if (!user) {
-          res.sendStatus(401);
+          res.sendStatus(401)
+          // .json({
+          //   error: true,
+          // });
+          // console.log('email not exist, exiting');
         }
         else {
-
-          bcrypt.compare(password, user.get('password'), function(err, isMatch) {
-            // callback(err, isMatch);
+          // console.log('user exist, compare password', user);
+          user.telo(password, function(err, isMatch) {
+            if (err){
+              throw err;
+            }
+            // console.log(password, isMatch);
             if(isMatch){
               var payload = {
                 id: user.id
@@ -74,9 +96,16 @@ router.post('/token', function(req, res){
               });
             } else {
               // console.log(err);
-              res.sendStatus(401);
+              res.status(401).json({
+                status: 401,
+                error: true,
+              });
             }
           });
+
+          // bcrypt.compare(password, user.get('password'), function(err, isMatch) {
+          // });
+
         }
       })
       .catch(function (err) {

@@ -2,9 +2,13 @@ var bcrypt = require('bcrypt');
 var Bookshelf = require('./../../config/db').bookshelf;
 Bookshelf.plugin(require('bookshelf-slug'));
 Bookshelf.plugin(require('bookshelf-bcrypt'));
-/*
+
+// import bcrypt from 'bcrypt';
+// import Bookshelf from 'bcrypt';
+
+/**
  *   Models
-**/
+ */
 
 // User model
 var User = Bookshelf.Model.extend({

@@ -42,11 +42,16 @@ $knex seed:run // run migration
 ###run system
 ```sh
 npm install
-npm start
+npm data:reload # to reload database, now use sqlite3 for testing
+npm run babel # run the app
+
+npm run build # to transpile ES6
+npm run serveEs6 # to run transpiled version
+
 ```
 
 in vagrant run
-```nodemon app.js -L
+```nodemon app.js -L```
 
 ###vagrant clue
 install it from [https://www.vagrantup.com/](https://www.vagrantup.com/)
