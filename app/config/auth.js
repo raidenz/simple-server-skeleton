@@ -1,11 +1,12 @@
-var _ = require('lodash');
-var passport = require("passport");
-var passportJWT = require("passport-jwt");
-var users = require("./fakeUsers.js");
-var cfg = require("./config.js");
-var ExtractJwt = passportJWT.ExtractJwt;
+import _ from 'lodash';
+import passport from "passport";
+import passportJWT from "passport-jwt";
+import users from "./fakeUsers.js";
+import cfg from "./config.js";
+
+const ExtractJwt = passportJWT.ExtractJwt;
 var Strategy = passportJWT.Strategy;
-var params = {
+const params = {
     secretOrKey: cfg.jwtConfig.jwtSecret,
     jwtFromRequest: ExtractJwt.fromAuthHeader()
 };

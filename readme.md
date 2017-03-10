@@ -36,24 +36,15 @@ $knex seed:make seedName #make migration
 $knex seed:run # run migration
 ```
 
-```sh
-# Old Ways
-# testing only, dont use it
-cd ./seed
-node user.js # user password default is "secret"
-node post.js
-node categories.js
-node tags.js
-```
 
 ###run system
 ```sh
 npm install
 npm data:reload # to reload database, now use sqlite3 for testing
-npm run babel # run the app
+npm start # run the app
 
 npm run build # to transpile ES6
-npm run serveEs6 # to run transpiled version
+npm run serve # to run transpiled version
 
 ```
 

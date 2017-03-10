@@ -3,7 +3,7 @@
 // var PostModel = require('./../../models/Model');
 
 import _ from 'lodash';
-import PostModel from './../../models/Model';
+import PostModel from './../../models';
 
 exports.getId = function(req, res){
     PostModel.Post.forge({id: req.params.id})

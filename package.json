@@ -4,22 +4,19 @@
   "description": "test rest api",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
     "clean": "rm -rf dist && mkdir dist",
-    "copydist": "cp -r ./views ./dist && cp -r ./public ./dist",
+    "copydist": "cp -r ./app/views ./dist && cp -r ./app/public ./dist",
+    "build": "npm run clean && npm run copydist && babel -d ./dist ./app --ignore node_modules,public,views --presets es2015,stage-2 --no-comments --compact true",
+    "start": "nodemon app/app-ES6.js --exec babel-node --presets es2015,stage-2",
+    "serve": "nodemon app.js",
+
     "build-css": "node-sass scss/app.scss public/css/app.css",
-    "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-2\"",
-    "babel": "nodemon app.js --exec babel-node --presets es2015,stage-2",
-    "buildtestfromlib": "babel lib -d dist --presets es2015,stage-2",
-    "build": "npm run clean && npm run copydist && babel -d ./dist ./ --ignore node_modules,seeds,seed,temp,migrations,public --presets es2015,stage-2 --no-comments",
-    "build2": "babel public -s -D -d dist --presets es2015,stage-2 --no-comments",
-    "serve": "node dist/app.js",
-    "serveEs6": "node dist/app-ES6.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+
     "data:rollback": "knex migrate:rollback",
     "data:latest": "knex migrate:latest",
     "data:seed": "knex seed:run",
-    "data:reload": "npm run data:rollback && npm run data:latest && npm run data:seed"
+    "data:reload": "npm run data:rollback && npm run data:latest && npm run data:seed",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

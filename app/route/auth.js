@@ -14,8 +14,8 @@
 // var bcrypt = require('bcrypt');
 // var _ = require('lodash');
 // var jwt = require("jwt-simple");
-// var auth = require("./../../config/auth.js")();
-// var cfg = require("./../../config/config.js");
+// var auth = require("./../config/auth.js")();
+// var cfg = require("./../config/config.js");
 
 // var PostModel = require('./../models/Model');
 
@@ -25,8 +25,8 @@ var router = express.Router();
 import bcrypt from 'bcrypt';
 import _ from 'lodash';
 import jwt from 'jwt-simple';
-import authdo from './../../config/auth.js';
-import cfg from './../../config/config.js';
+import authdo from './../config/auth.js';
+import cfg from './../config/config.js';
 
 const auth = authdo();
 
@@ -59,7 +59,7 @@ router.get("/user", auth.authenticate(), function(req, res) {
  */
 router.post('/token', function(req, res){
   // res.json({token: "generated token here"});
-  console.log(req.body);
+  // console.log(req.body);
   if (req.body.email && req.body.password) {
     var email = req.body.email;
     var password = req.body.password;
@@ -76,8 +76,7 @@ router.post('/token', function(req, res){
           //   error: true,
           // });
           // console.log('email not exist, exiting');
-        }
-        else {
+        } else {
           // console.log('user exist, compare password', user);
           user.telo(password, function(err, isMatch) {
             if (err){
@@ -110,10 +109,10 @@ router.post('/token', function(req, res){
       })
       .catch(function (err) {
         // res.status(500).json({error: true, data: {message: err.message}});
-    });
-  } else {
-      res.sendStatus(401);
-  }
+      });
+    } else {
+        res.sendStatus(401);
+    }
 
 });
 
