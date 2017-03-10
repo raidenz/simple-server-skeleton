@@ -14,7 +14,8 @@ node migrate # im not use it anymore
 ``
 
 ##install knex
-```npm install -g knex
+```sh
+npm install -g knex
 knex init
 edit knexfile.js
 knex migrate:make setup
