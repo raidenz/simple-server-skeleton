@@ -9,13 +9,16 @@ base on
 
 not use anymore but you can try it
 
-``node migrate``
+``
+node migrate # im not use it anymore
+``
 
 ##install knex
-```npm install -g knex```
-```knex init```
-```edit knexfile.js```
-```knex migrate:make setup```
+```npm install -g knex
+knex init
+edit knexfile.js
+knex migrate:make setup
+```
 
 ###change environment
 ```knex migrate:latest --env production```
@@ -27,17 +30,20 @@ not use anymore but you can try it
 ```knex migrate:rollback```
 
 ###seed database
-```cd ./seed```
-or using
 ```sh
-$knex seed:make seedName //make migration
-$knex seed:run // run migration
+$knex seed:make seedName #make migration
+$knex seed:run # run migration
 ```
 
-```node user.js``` user password default is "secret"
-```node post.js```
-```node categories.js```
-```node tags.js```
+```sh
+# Old Ways
+# testing only, dont use it
+cd ./seed
+node user.js # user password default is "secret"
+node post.js
+node categories.js
+node tags.js
+```
 
 ###run system
 ```sh
@@ -55,9 +61,11 @@ in vagrant run
 
 ###vagrant clue
 install it from [https://www.vagrantup.com/](https://www.vagrantup.com/)
-```vagrant init hashicorp/precise64```
-```vagrant up```
-```vagrant ssh```
+```
+vagrant init hashicorp/precise64
+vagrant up
+vagrant ssh
+```
 
 ###Route
 
