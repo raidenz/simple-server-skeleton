@@ -50,4 +50,8 @@ router.post('/form', uploader.any(), function(req, res, next){
 
 });
 
+router.put('/put', function(req, res){
+  res.json({"method": "put"})
+});
+
 module.exports = router

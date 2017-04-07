@@ -1,3 +1,6 @@
+/**
+ *  Abandoned for test
+ */
 /*var knex = require('knex')({
   client: 'mysql',
   connection: {

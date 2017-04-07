@@ -8,17 +8,6 @@
  * req:
  * /token
  */
-// var express = require('express');
-// var router = express.Router();
-
-// var bcrypt = require('bcrypt');
-// var _ = require('lodash');
-// var jwt = require("jwt-simple");
-// var auth = require("./../config/auth.js")();
-// var cfg = require("./../config/config.js");
-
-// var PostModel = require('./../models/Model');
-
 import express from 'express';
 var router = express.Router();
 
@@ -78,7 +67,7 @@ router.post('/token', function(req, res){
           // console.log('email not exist, exiting');
         } else {
           // console.log('user exist, compare password', user);
-          user.telo(password, function(err, isMatch) {
+          user.comparepass(password, function(err, isMatch) {
             if (err){
               throw err;
             }

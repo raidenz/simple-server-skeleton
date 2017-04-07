@@ -6,7 +6,7 @@ const User = DB.Model.extend({
   hidden: ['password'],
   bcrypt: { field: 'password' },
   hasTimestamps:true,
-  telo: function(password , cb) {
+  comparepass: function(password , cb) {
     /*use
       http://devsmash.com/blog/password-authentication-with-mongoose-and-bcrypt
       http://csaden.github.io/hackreactor/Hashing-Passwords-and-Resolving-Promises.html
@@ -15,7 +15,7 @@ const User = DB.Model.extend({
         console.log('Password123:', isMatch); // -> Password123: true
       });
     */
-    console.log('running telo ' + this.get('password'), password);
+    // console.log('running comparepass ' + this.get('password'), password);
     bcrypt.compare(password, this.get('password'), function(err, isMatch) {
       if (err) return cb(err);
       cb(null, isMatch);

@@ -17,7 +17,7 @@ module.exports = {
     // }
     client: 'sqlite3',
     connection: {
-      filename: './test_dev.db', // WARNING buggy switch to ./../cprac_dev.db for seeding
+      filename: './test_dev.db', // WARNING buggy switch to ./../test_dev.db for seeding
       charset: 'utf8'
     },
     useNullAsDefault: true, //sqlite only

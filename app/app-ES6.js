@@ -3,23 +3,32 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
+import { addPath } from 'app-module-path';
 import _ from 'lodash';
 
 import authConfig from './config/auth.js';
 
-// var express = require('express');
-// var app = express();
-// var bodyParser = require('body-parser');
-// var logger = require('morgan');
-// var _ = require('lodash');
-// var useport = process.env.PORT || 4738;
+// console.log(__dirname);
+console.log(process.cwd());
+  // addPath(__dirname);
+  addPath(process.cwd());
+
 
 const app = express();
+if (app.get('env') === 'development') {
+  // process.env.NODE_PATH
+} else {}
 const auth = authConfig();
 const useport = process.env.PORT || 4738;
 
 // var auth = require("./config/auth.js")();
 app.use(auth.initialize());
+
+/**
+ * for parsing forms
+ */
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 /**
 *
@@ -32,46 +41,43 @@ app.use(function(req, res, next) {
   next();
 });
 
+
 /**
  * Api Router Stop
  */
+// console.log('ok ' + __dirname);
 app.use(logger('dev'));
-app.use(express.static('public'));
-app.set('views', './views');
+app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
-
-/**
- * for parsing forms
- */
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
-
 /**
  * route
  * outside route test
  * Api Router Start
  *
  */
-
-const routeTelo = require('./route/telo');
-const routeApi = require('./route/api');
 const routeMain = require('./route/main');
 const routeAuth = require('./route/auth');
-const routeDebug = require('./route/debug');
 
 app.use('/', routeMain);
-app.use('/telo', routeTelo);
-app.use('/api', routeApi);
 app.use('/auth', routeAuth);
+
+/**
+ * Versioning test
+ */
+import routeApiV1 from './route/api/v1/route';
+app.use('/api/v1', routeApiV1);
+
+/**
+ *  Testing Puspose
+ */
+const routeDebug = require('./route/debug');
 app.use('/debug', routeDebug);
 
 /**
  * development error handler
  * will print stacktrace
  */
-
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -86,7 +92,6 @@ if (app.get('env') === 'development') {
  * production error handler
  * no stacktraces leaked to user
  */
-
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({
@@ -98,7 +103,6 @@ app.use(function(err, req, res, next) {
 /**
  * 404
  */
-
 app.use(function (req, res, next) {
   res.status(404).send("404 BRO, Sorry can't find that!")
 });

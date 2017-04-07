@@ -7,11 +7,9 @@
     "clean": "rm -rf dist && mkdir dist",
     "copydist": "cp -r ./app/views ./dist && cp -r ./app/public ./dist",
     "build": "npm run clean && npm run copydist && babel -d ./dist ./app --ignore node_modules,public,views --presets es2015,stage-2 --no-comments --compact true",
-    "start": "nodemon app/app-ES6.js --exec babel-node --presets es2015,stage-2",
-    "serve": "nodemon app.js",
-
+    "start": "NODE_PATH=./app nodemon app/app-ES6.js --exec babel-node --presets es2015,stage-2",
+    "serve": "NODE_PATH=./dist NODE_ENV=production nodemon app.js",
     "build-css": "node-sass scss/app.scss public/css/app.css",
-
     "data:rollback": "knex migrate:rollback",
     "data:latest": "knex migrate:latest",
     "data:seed": "knex seed:run",
@@ -30,6 +28,7 @@
   "author": "Raidenz",
   "license": "MIT",
   "dependencies": {
+    "app-module-path": "^2.2.0",
     "babel-node": "^6.5.3",
     "babel-polyfill": "^6.23.0",
     "bcryptjs": "^2.4.0",
