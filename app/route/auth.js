@@ -35,7 +35,7 @@ router.get("/user", auth.authenticate(), function(req, res) {
       }
       else {
         // res.json({error: false, data: user.omit('password')});
-        res.json({ error: false, data: user });
+        res.jsend.success({ user });
       }
     })
     .catch(function (err) {

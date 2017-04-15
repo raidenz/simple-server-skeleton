@@ -9,26 +9,29 @@ exports.list = function(req, res){
   PostModel.Posts.forge()
   .fetch()
   .then(function (collection) {
-    res.json({error: false, data: collection.toJSON()});
+    res.jsend.success(collection.toJSON());
   })
   .catch(function (err) {
-    res.status(500).json({error: true, data: {message: err.message}});
+    // res.status(500).json({error: true, data: {message: err.message}});
+    res.jsend.error({code: 500, message: err.message});
   });
 };
 
 exports.getId = function(req, res){
     PostModel.Post.forge({id: req.params.id})
-    .fetch({withRelated: ['categories', 'tags']})
+    .fetch({withRelated: ['category', 'tags']})
     .then(function (post) {
       if (!post) {
-        res.status(404).json({error: true, data: {}});
+        res.jsend.error({code: 404, message: 'error'});
       }
       else {
-        res.json({error: false, data: post.toJSON()});
+        // res.json({error: false, data: post.toJSON()});
+        res.jsend.success(post.toJSON());
       }
     })
     .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+      // res.status(500).json({error: true, data: {message: err.message}});
+      res.jsend.error({code: 500, message: err.message});
     });
   };
 
@@ -46,16 +49,31 @@ exports.create = function(req, res){
       });
     }
     else {
-      tags = ['uncategorised'];
+      tags = ['uncategorized'];
+      // tags = ['uncategorised'];
     }
 
     // save post variables
+    /**
+     * Todo:
+     * Pick Variable from body
+     * or get all body with mass asign protection
+     * _.pick(req.body, ['a', 'c']);
+     * let {user_id, category_id, title} = req.body;\
+     * ...req.body >> ganti post ke html >> input table set
+     */
+    let {user_id, category_id, title, html} = req.body;
     PostModel.Post.forge({
-      user_id: req.body.user_id,
-      category_id: req.body.category_id,
-      title: req.body.title,
-      // slug: req.body.title.replace(/ /g, '-').toLowerCase(),
-      html: req.body.post
+      // cek
+      // user_id: req.body.user_id,
+      // category_id: req.body.category_id,
+      // title: req.body.title,
+      // // slug: req.body.title.replace(/ /g, '-').toLowerCase(),
+      // html: req.body.html
+      user_id,
+      category_id,
+      title,
+      html
     })
     .save()
     .then(function (post) {
@@ -72,18 +90,18 @@ exports.create = function(req, res){
           // attach tags to post
           model.tags().attach(ids);
 
-          res.json({error: false, data: {message: 'Tags saved'}});
+          res.jsend.success({message: 'Tags saved'});
         })
         .catch(function (err) {
-          res.status(500).json({error: true, data: {message: err.message}});
+          res.jsend.error({code: 500, message: err.message});
         });
       })
       .catch(function (err) {
-        res.status(500).json({error: true, data: {message: err.message}});
+        res.jsend.error({code: 500, message: err.message});
       });
     })
     .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+      res.jsend.error({code: 500, message: err.message});
     });
   };
 
@@ -96,10 +114,10 @@ exports.getCatbyId = function(req, res){
     .then(function (category) {
       var posts = category.related('posts');
 
-      res.json({error: false, data: posts.toJSON()});
+      res.jsend.success(posts.toJSON());
     })
     .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+      res.jsend.error({code: 500, message: err.message});
     });
   // });
 };
@@ -112,10 +130,10 @@ exports.getTagBySlug = function(req, res){
     .then(function (tag) {
       var posts = tag.related('posts');
 
-      res.json({error: false, data: posts.toJSON()});
+      res.jsend.success(posts.toJSON());
     })
     .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+      res.jsend.error({code: 500, message: err.message});
     });
   // });
   };

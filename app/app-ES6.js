@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 import { addPath } from 'app-module-path';
 import _ from 'lodash';
+import jsend from 'jsend';
 
 import authConfig from './config/auth.js';
 
@@ -23,6 +24,10 @@ const useport = process.env.PORT || 4738;
 
 // var auth = require("./config/auth.js")();
 app.use(auth.initialize());
+/**
+ * Use Jsend Midleware
+ */
+app.use(jsend.middleware);
 
 /**
  * for parsing forms

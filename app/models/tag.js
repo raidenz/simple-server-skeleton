@@ -6,8 +6,9 @@ const Tag = DB.Model.extend({
   slug: ['name'],
 
   posts: function () {
-    return this.belongsToMany(Tag);
+    return this.belongsToMany('Tag');
   }
 });
 
-export default Tag;
+// export default Tag;
+export default DB.model('Tag', Tag);

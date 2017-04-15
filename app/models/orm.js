@@ -16,6 +16,19 @@ const Orm = new Bookshelf(new Knex(Config.development));
 Orm.plugin(require('bookshelf-slug'));
 Orm.plugin(require('bookshelf-bcrypt'));
 
+/**
+ * Todo:
+ * Add Modelbase
+ * https://github.com/bsiddiqui/bookshelf-modelbase
+ * Orm.plugin(require('bookshelf-modelbase').pluggable);
+ *
+ * add mass asignment
+ * read https://github.com/tanbrian/bookshelf-mass-assignment
+ * Orm.plugin('bookshelf-mass-assignment');
+ */
+// Orm.plugin(require('bookshelf-modelbase').pluggable);
+// Orm.plugin('bookshelf-mass-assignment');
+
 Orm.plugin('registry');
 Orm.plugin('virtuals');
 Orm.plugin('visibility');

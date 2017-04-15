@@ -7,17 +7,18 @@ const Post = DB.Model.extend({
   hasTimestamps: true,
 
   category: function () {
-    return this.belongsTo(Category, 'category_id');
+    return this.belongsTo('Category', 'category_id');
   },
 
   tags: function () {
-    return this.belongsToMany(Tag);
+    return this.belongsToMany('Tag');
   },
 
   author: function () {
-    return this.belongsTo(User);
+    return this.belongsTo('User');
   }
 });
 
 
-export default Post;
+// export default Post;
+export default DB.model('Post', Post);
