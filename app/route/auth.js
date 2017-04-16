@@ -1,7 +1,13 @@
 /**
  * reserve for jwt
  * note: damn i never use it before
- * cek passport jwt and bookshelf on google (LOL)
+ * http://www.svlada.com/jwt-token-authentication-with-spring-boot/#jwt-authenticationhttp://www.svlada.com/jwt-token-authentication-with-spring-boot/#jwt-authentication
+ * https://blog.hyphe.me/token-based-authentication-with-node/
+ * >> https://blog.jscrambler.com/implementing-jwt-using-passport/
+ *
+ * TODO
+ * add expiration please
+ * https://www.sitepoint.com/using-json-web-tokens-node-js/
  */
 
 /**
@@ -11,6 +17,7 @@
 import express from 'express';
 var router = express.Router();
 
+import moment from 'moment';
 import bcrypt from 'bcrypt';
 import _ from 'lodash';
 import jwt from 'jwt-simple';
@@ -24,6 +31,7 @@ import PostModel from './../models';
 // router.use(auth.initialize());
 
 /**
+ * CHECK AUTH
  * /auth/user
  */
 router.get("/user", auth.authenticate(), function(req, res) {
@@ -31,7 +39,7 @@ router.get("/user", auth.authenticate(), function(req, res) {
     .fetch()
     .then(function (user) {
       if (!user) {
-        res.status(404).json({error: true, data: {}});
+        res.status(404).jsend.error({code: 404, message: 'User not Exist'});
       }
       else {
         // res.json({error: false, data: user.omit('password')});
@@ -39,32 +47,34 @@ router.get("/user", auth.authenticate(), function(req, res) {
       }
     })
     .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+      res.status(500).jsend.error({code: 500, message: err.message});
   });
 });
 
 /**
+ * LOGIN HERE
  * /auth/token
  */
 router.post('/token', function(req, res){
   // res.json({token: "generated token here"});
   // console.log(req.body);
   if (req.body.email && req.body.password) {
-    var email = req.body.email;
-    var password = req.body.password;
-    /*
-    logic Error
+    let {email, password} = req.body
+    /**
+     * logic Error
      */
-    PostModel.User.forge({email: req.body.email})
+    PostModel.User.forge({email})
       .fetch()
       .then(function (user) {
         // console.log('user is', user);
         if (!user) {
-          res.sendStatus(401)
-          // .json({
-          //   error: true,
-          // });
-          // console.log('email not exist, exiting');
+          // res.sendStatus(401)
+          // it shold be 404 but change it
+          // to 401 to set it unauthorized
+          res.status(401).jsend.error({
+            code: 401,
+            message: 'error',
+          });
         } else {
           // console.log('user exist, compare password', user);
           user.comparepass(password, function(err, isMatch) {
@@ -73,20 +83,22 @@ router.post('/token', function(req, res){
             }
             // console.log(password, isMatch);
             if(isMatch){
-              var payload = {
-                id: user.id
+              let payload = {
+                id: user.id,
+                // set expiration to 1 day
+                exp: moment().add(1, 'days').valueOf(),
+                // exp: moment().add(1, 'minutes').valueOf() // For debug
               };
               // console.log(user.id);
-              var token = jwt.encode(payload, cfg.jwtConfig.jwtSecret);
-              res.json({
-                  error: false,
+              let token = jwt.encode(payload, cfg.jwtConfig.jwtSecret);
+              res.jsend.success({
                   token: 'JWT ' + token
               });
             } else {
-              // console.log(err);
-              res.status(401).json({
-                status: 401,
-                error: true,
+              // Unauthorized
+              res.status(401).jsend.error({
+                code: 401,
+                message: 'error',
               });
             }
           });
@@ -97,12 +109,25 @@ router.post('/token', function(req, res){
         }
       })
       .catch(function (err) {
-        // res.status(500).json({error: true, data: {message: err.message}});
+        // let it blank
+        // res.status(500).json({code: true, data: {message: err.message}});
       });
     } else {
-        res.sendStatus(401);
+        // res.sendStatus(401);
+      res.status(401).jsend.error({
+        code: 401,
+        message: 'error',
+      });
     }
 
+});
+
+router.get("/debug",
+  function(req, res, next){
+    console.log(req.get('Authorization'));
+    next();
+  }, function(req, res){
+    res.json("debugging");
 });
 
 module.exports = router

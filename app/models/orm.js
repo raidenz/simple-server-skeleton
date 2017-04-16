@@ -26,11 +26,12 @@ Orm.plugin(require('bookshelf-bcrypt'));
  * read https://github.com/tanbrian/bookshelf-mass-assignment
  * Orm.plugin('bookshelf-mass-assignment');
  */
-// Orm.plugin(require('bookshelf-modelbase').pluggable);
+Orm.plugin(require('bookshelf-modelbase').pluggable);
 // Orm.plugin('bookshelf-mass-assignment');
 
 Orm.plugin('registry');
 Orm.plugin('virtuals');
 Orm.plugin('visibility');
+Orm.plugin('pagination');
 
 export default Orm;
