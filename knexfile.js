@@ -21,6 +21,7 @@ module.exports = {
       charset: 'utf8'
     },
     useNullAsDefault: true, //sqlite only
+    debug: true,
   },
 
   staging: {
