@@ -8,10 +8,10 @@ exports.list = function(req, res){
     PostModel.Categories.forge()
     .fetch()
     .then(function (collection) {
-      res.json({error: false, data: collection.toJSON()});
+      res.jsend.success(collection.toJSON());
     })
     .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+      res.status(500).json.jsend.error({code: 500, data: {message: err.message}});
     });
   // });
 }
@@ -22,10 +22,10 @@ exports.create = function(req, res){
     PostModel.Category.forge({name: req.body.name})
     .save()
     .then(function (category) {
-      res.json({error: false, data: {id: category.get('id')}});
+      res.jsend.success({id: category.get('id')});
     })
     .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+      res.status(500).json.jsend.error({code: 500, data: {message: err.message}});
     });
   // });
 };
@@ -38,14 +38,14 @@ exports.getId = function(req, res){
     .fetch()
     .then(function (category) {
       if(!category) {
-        res.status(404).json({error: true, data: {}});
+        res.status(404).json({code: 404, data: {}});
       }
       else {
-        res.json({error: false, data: category.toJSON()});
+        res.jsend.success(category.toJSON());
       }
     })
     .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+      res.status(500).json.jsend.error({code: 500, data: {message: err.message}});
     });
   // })
   };
@@ -58,14 +58,14 @@ exports.update = function(req, res){
     .then(function (category) {
       category.save({name: req.body.name || category.get('name')})
       .then(function () {
-        res.json({error: false, data: {message: 'Category updated'}});
+        res.jsend.success({message: 'Category updated'});
       })
       .catch(function (err) {
-        res.status(500).json({error: true, data: {message: err.message}});
+        res.status(500).json.jsend.error({code: 500, data: {message: err.message}});
       });
     })
     .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+      res.status(500).json.jsend.error({code: 500, data: {message: err.message}});
     });
   // })
   };
@@ -78,14 +78,14 @@ exports.delete = function(req, res){
     .then(function (category) {
       category.destroy()
       .then(function () {
-        res.json({error: true, data: {message: 'Category successfully deleted'}});
+        res.jsend.success({message: 'Category successfully deleted'});
       })
       .catch(function (err) {
-        res.status(500).json({error: true, data: {message: err.message}});
+        res.status(500).json.jsend.error({code: 500, data: {message: err.message}});
       });
     })
     .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+      res.status(500).json.jsend.error({code: 500, data: {message: err.message}});
     });
 // });
 };

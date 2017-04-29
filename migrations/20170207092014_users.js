@@ -1,3 +1,9 @@
+// var schema = function(t) {
+//   t.increments().primary();
+//   t.string('first_name');
+//   t.string('last_name');
+//   t.timestamps();
+// };
 
 exports.up = function(knex, Promise) {
   return Promise.all([
@@ -8,11 +14,18 @@ exports.up = function(knex, Promise) {
       table.string('password');
       table.timestamps();
     })
+    // knex.schema.createTable('users', schema)
+    // .then(function() {
+    //   console.log('User table created.');
+    // });
   ])
 };
 
 exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.dropTable('users')
+    // .then(function() {
+    //   console.log('User table Dropped.');
+    // });
   ])
 };

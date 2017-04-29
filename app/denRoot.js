@@ -11,3 +11,8 @@ var denRoot = __dirname;
 module.exports = GLOBAL.projRequire = function(module) {
   return require(denRoot + module);
 }
+
+// global.rootRequire = function(name) {
+//   return require(__dirname + '/' + name);
+//   return import
+// }

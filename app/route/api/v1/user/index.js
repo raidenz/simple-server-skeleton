@@ -24,7 +24,7 @@ let router = express.Router();
 
 router.route('/')
   .get(controller.list)
-  .post(controller.create);
+  .post(auth.authenticate(), controller.create);
 
 router.route('/:id')
   .get(controller.getId)
