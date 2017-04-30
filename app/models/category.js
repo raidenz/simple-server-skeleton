@@ -5,9 +5,10 @@ const Category = DB.Model.extend({
   tableName: 'categories',
 
   posts: function () {
-    return this.hasMany(Post);
+    return this.hasMany('Post');
   }
 });
 
 
-export default Category;
+// export default Category;
+export default DB.model('Category', Category);

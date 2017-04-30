@@ -13,6 +13,7 @@ exports.up = function(knex, Promise) {
       table.increments('id').unsigned().primary();
       table.string('name');
       table.string('slug');
+      table.timestamps();
     }).createTable('posts_tags', function(table){
       table.integer('post_id').unsigned().references('posts.id');
       table.integer('tag_id').unsigned().references('tags.id');

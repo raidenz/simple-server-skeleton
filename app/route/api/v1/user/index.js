@@ -1,6 +1,8 @@
 import express from 'express';
 import controller from './controller';
+import authdo from 'config/auth';
 
+const auth = authdo();
 let router = express.Router();
 
 /**
@@ -22,11 +24,11 @@ let router = express.Router();
 
 router.route('/')
   .get(controller.list)
-  .post(controller.create);
+  .post(auth.authenticate(), controller.create);
 
 router.route('/:id')
   .get(controller.getId)
-  .patch(controller.update)
-  .delete(controller.delete);
+  .patch(auth.authenticate(),controller.update)
+  .delete(auth.authenticate(), controller.delete);
 
 export default router;

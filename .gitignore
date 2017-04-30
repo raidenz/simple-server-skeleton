@@ -4,3 +4,6 @@ node_modulesx
 npm-debug*
 temp/
 dist/
+*.log
+test_dev.db
+yarn.lock

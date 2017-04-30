@@ -31,15 +31,19 @@
     "app-module-path": "^2.2.0",
     "babel-node": "^6.5.3",
     "babel-polyfill": "^6.23.0",
-    "bcryptjs": "^2.4.0",
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.16.0",
     "bookshelf": "^0.10.3",
     "bookshelf-bcrypt": "^2.1.0",
+    "bookshelf-mass-assignment": "^0.1.2",
+    "bookshelf-modelbase": "^2.10.3",
     "bookshelf-slug": "^0.3.2",
     "express": "^4.14.0",
+    "jsend": "^1.0.2",
     "jwt-simple": "^0.5.1",
     "knex": "^0.12.6",
     "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "morgan": "^1.8.1",
     "multer": "^1.3.0",
     "mysql": "^2.13.0",
@@ -47,6 +51,7 @@
     "passport-jwt": "^2.2.1",
     "pug": "^2.0.0-beta6",
     "sqlite3": "^3.1.8",
+    "unicode": "^9.0.1",
     "when": "^3.7.7"
   },
   "devDependencies": {
@@ -54,7 +59,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
-    "faker": "^3.1.0"
+    "faker": "^4.1.0"
   },
   "babel": {
     "presets": [
