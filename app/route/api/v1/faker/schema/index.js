@@ -1,33 +1,29 @@
 var faker = require('faker');
 var exports = module.exports = {};
 
-exports.fakeCategory = (x, id) => {
-  // prevent duplicate
-  // let name = faker.internet.userName();
+exports.fakeCategory = () => {
   return {
     name: faker.lorem.words(1),
   }
 }
 
-exports.fakeTag = (x, id) => {
-  // prevent duplicate
-  // let name = faker.internet.userName();
+exports.fakeTag = () => {
   return {
     name: faker.lorem.words(1),
   }
 }
 
-exports.fakeUser = (x, id) => {
+exports.fakeUser = () => {
   const name = faker.internet.userName();
-  return{
+  return {
     name: name,
     email: name.toLowerCase()+'@example.com', // email base on name
   }
 }
 
-exports.fakePost = (x, id) => {
+exports.fakePost = () => {
   let title = faker.lorem.words();
-  return{
+  return {
     user_id : faker.helpers.randomize(Array.from({length: 5}, (v, k) => k+1)),
     category_id: faker.helpers.randomize(Array.from({length: 5}, (v, k) => k+1)),
     title: title,

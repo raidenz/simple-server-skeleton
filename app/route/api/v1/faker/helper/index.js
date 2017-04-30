@@ -10,7 +10,7 @@ exports.make = (schema, num = 5) => {
 };
 
 // exports.populate = populate;
-exports.populate = (num = 5, fn) => (Array.from({length: num}, fn, id => id));
+exports.populate = (num = 5, fn) => (Array.from({length: num}, fn));
 
 /**
  * Save to db.json
