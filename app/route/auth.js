@@ -23,7 +23,6 @@ import _ from 'lodash';
 import jwt from 'jwt-simple';
 import authdo from './../config/auth.js';
 import cfg from './../config/config.js';
-
 const auth = authdo();
 
 import PostModel from './../models';
@@ -33,8 +32,16 @@ import PostModel from './../models';
 /**
  * CHECK AUTH
  * /auth/user
+ * Use manual Auth
+ * import passport from "passport";
+ * passport.authenticate('jwt', {
+ *  successRedirect: '/loggedin',
+ *  failureRedirect: '/login', // see text
+ *  failureFlash: true // optional, see text as well
+ * })
  */
-router.get("/user", auth.authenticate(), function(req, res) {
+
+router.get("/user", auth.authenticate(), authdo.jwtError ,function(req, res) {
   PostModel.User.forge({id: req.user.id})
     .fetch()
     .then(function (user) {

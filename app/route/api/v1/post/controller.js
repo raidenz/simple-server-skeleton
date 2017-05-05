@@ -1,22 +1,22 @@
-// var ld = require( 'lodash' );
-// var _ = ld.noConflict();
 // var PostModel = require('./../../models/Model');
 
 import _ from 'lodash';
 import PostModel from 'models';
 
 exports.list = function(req, res){
-  PostModel.Posts.forge()
-  .fetchPage({page: 1, pageSize: 10})
-  .then(function (collection) {
-    // console.log(collection.pagination);
-    // res.jsend.success({results: collection.toJSON()});
-    // let newCol = _.keyBy(collection, "id")
-    // results: collection._byId,
-    // results: newCol,
+  let defQuery = (req.query.page) ? (req.query.page) : 1;
+  console.log(defQuery)
+  PostModel.Post
+  // .query(function(qb){
+  //   // qb.where(knex.raw('`tableName`.`columnName`'), conditionValue);
+  // })
+  .forge()
+  .fetchPage({page: defQuery, pageSize: 10})
+  .then(function (cooll) {
     res.jsend.success({
-      results: collection,
-      pagination: collection.pagination
+      // results: cooll,
+      results: cooll.models,
+      pagination: cooll.pagination
     });
   })
   .catch(function (err) {

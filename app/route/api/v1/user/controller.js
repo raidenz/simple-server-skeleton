@@ -34,7 +34,7 @@ exports.getId = function(req, res){
         res.jsend.error({code: 404, data: {}});
       }
       else {
-        res.jsend.success(user.omit('password'));
+        res.jsend.success(user);
       }
     })
     .catch(function (err) {
